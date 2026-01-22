@@ -70,8 +70,24 @@
             color: #ffaa00;
             display: none;
         }
-    </style>
-</head>
+   /* This makes your Hotspot look like a clean white label */
+  .Hotspot {
+    background: #fff;
+    border-radius: 32px;
+    border: 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    padding: 8px 16px;
+    cursor: pointer;
+  }
+  .HotspotAnnotation {
+    background: #fff;
+    border-radius: 4px;
+    color: rgba(0, 0, 0, 0.8);
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+  }
+</style></head>
 <body>
     <div class="container">
         <h2>🪨 استكشف الصخرة الذكية</h2>
@@ -80,21 +96,26 @@
             ⚠️ تأكد أن الملف <code>rock_internal-v1.glb</code> موجود بنفس المجلد
         </div>
 
-        <model-viewer
-            id="viewer"
-            src="rock_internal-v1.glb"
-            ar
-            ar-modes="scene-viewer webxr quick-look"
-            ar-scale="fixed"
-            camera-controls
-            auto-rotate
-            shadow-intensity="1">
-            
-            <button slot="ar-button" class="ar-btn">
-                📸 افتح الكاميرا (AR)
-            </button>
-        </model-viewer>
 
+<model-viewer
+    id="viewer"
+    src="rock_internal-v1.glb"
+    ios-src="rock_internal-v1.usdz" 
+    ar
+    ar-modes="scene-viewer webxr quick-look"
+    ar-scale="fixed"
+    camera-controls
+    auto-rotate
+    shadow-intensity="1">
+    
+    <button slot="ar-button" class="ar-btn">
+        📸 افتح الكاميرا (AR)
+    </button>
+
+    <button class="Hotspot" slot="hotspot-1" data-position="0.1m 0.5m 0.1m" data-normal="0m 1m 0m">
+        <div class="HotspotAnnotation">مكونات الصخرة</div>
+    </button>
+</model-viewer>
         <div class="info">
             <p>👆 اسحب للتدوير</p>
             <p>🔍 قرّب أصابعك للتكبير</p>
