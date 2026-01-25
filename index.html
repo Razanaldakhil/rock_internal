@@ -96,6 +96,21 @@
         model-viewer [slot^="hotspot"]::before {
           background: #00c896 !important;
         }
+        model-viewer [slot^="hotspot"] {
+  font-size: 12px !important;          /* smaller text – was probably ~14–15px */
+  padding: 4px 10px !important;        /* tighter padding */
+  min-width: unset !important;
+  white-space: nowrap;
+  line-height: 1.2 !important;
+  border-radius: 16px !important;
+  background: rgba(0, 200, 150, 0.9) !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.5) !important;
+}
+
+/* Optional: shorter leader line (the connecting stem) */
+model-viewer [slot^="hotspot"]::part(leader) {
+  height: 18px !important;             /* default is longer – shorten it */
+}
 
         .ar-btn {
             background: linear-gradient(135deg, #00c896, #00a0ff);
@@ -490,25 +505,27 @@
   reveal="auto">
 
   <!-- Always-visible annotation hotspots -->
-  <button 
-    slot="hotspot-camera"
-    data-position="0.05m 0.25m 0.1m"
-    data-normal="0m 1m 0m"
-    data-visibility-attribute="visible">
-    الكاميرا الذكية
-  </button>
+<button 
+  slot="hotspot-camera"
+  data-position="0.08m 0.28m 0.12m"    
+  data-normal="0m 1m 0m"
+  data-visibility-attribute="visible">
+  الكاميرا الذكية
+</button>
 
-  <button 
-    slot="hotspot-nano"
-    data-position="0m 0.15m 0.05m"
-    data-normal="0m 1m 0m"
-    data-visibility-attribute="visible">
-    وحدة المعالجة (Jetson Nano)
-  </button>
+<button 
+  slot="hotspot-nano"
+  data-position="-0.04m 0.18m 0.06m"  
+  data-normal="0m 1m 0m"
+  data-visibility-attribute="visible">
+  وحدة المعالجة (Jetson Nano)
+</button>
+
+ 
 
   <button 
     slot="hotspot-ugv"
-    data-position="0m 0.05m 0m"
+  data-position="0m 0.02m -0.02m"      
     data-normal="0m 1m 0m"
     data-visibility-attribute="visible">
      UGV مركبة أرضية بدون طيار
