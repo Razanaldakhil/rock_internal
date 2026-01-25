@@ -3,36 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#0a0a0a">
     <title>الصخرة الذكية للمراقبة الحدودية - معرض تفاعلي</title>
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <style>
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
-        }
-
-        /* Prevent zoom on input focus for iOS */
-        input, select, textarea {
-            font-size: 16px;
-        }
-
-        /* Smooth scrolling for better mobile experience */
-        html {
-            scroll-behavior: smooth;
-            -webkit-text-size-adjust: 100%;
-        }
-        
+        /* التنسيقات العامة الحالية لديك */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Cairo', sans-serif;
             background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
             color: white;
             overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
 
         .header {
@@ -45,31 +25,19 @@
 
         .header h1 {
             font-size: 24px;
-            margin-bottom: 10px;
             background: linear-gradient(90deg, #00c896, #00a0ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
 
-        .header p {
-            font-size: 14px;
-            color: #888;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
 
         .viewer-section {
             background: rgba(26, 26, 46, 0.6);
             border-radius: 20px;
             padding: 20px;
-            margin-bottom: 30px;
             border: 1px solid rgba(0, 200, 150, 0.2);
-            box-shadow: 0 10px 40px rgba(0, 200, 150, 0.1);
+            position: relative;
         }
 
         model-viewer {
@@ -77,597 +45,108 @@
             height: 500px;
             background: radial-gradient(circle at center, #1a1a2e, #0a0a0a);
             border-radius: 15px;
-            --progress-bar-color: #00c896;
         }
 
-        .ar-btn {
-            background: linear-gradient(135deg, #00c896, #00a0ff);
-            color: white;
+        /* --- تنسيق نقاط المعلومات (Hotspots) الجديد --- */
+        .hotspot {
+            display: block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
             border: none;
-            padding: 18px 40px;
-            border-radius: 30px;
-            font-size: 18px;
-            font-weight: bold;
+            background-color: #00c896;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
             cursor: pointer;
-            box-shadow: 0 5px 20px rgba(0, 200, 150, 0.4);
-            transition: all 0.3s ease;
-        }
-
-        .ar-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(0, 200, 150, 0.6);
-        }
-
-        .controls {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-
-        .controls p {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 12px 20px;
-            border-radius: 20px;
-            font-size: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .info-card {
-            background: rgba(26, 26, 46, 0.6);
-            border-radius: 15px;
-            padding: 25px;
-            border: 1px solid rgba(0, 200, 150, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        .info-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(0, 200, 150, 0.5);
-            box-shadow: 0 10px 30px rgba(0, 200, 150, 0.2);
-        }
-
-        .info-card h3 {
-            font-size: 18px;
-            margin-bottom: 15px;
-            color: #00c896;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .info-card ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .info-card li {
-            padding: 8px 0;
-            padding-right: 20px;
             position: relative;
-            font-size: 14px;
-            color: #ccc;
         }
 
-        .info-card li::before {
-            content: "◆";
-            position: absolute;
-            right: 0;
-            color: #00c896;
+        .hotspot:not([data-visible]) {
+            opacity: 0;
+            pointer-events: none;
         }
 
-        .specs-section {
-            background: rgba(26, 26, 46, 0.6);
-            border-radius: 15px;
-            padding: 30px;
-            border: 1px solid rgba(0, 200, 150, 0.2);
-            margin-bottom: 30px;
-        }
-
-        .specs-section h2 {
-            font-size: 22px;
-            margin-bottom: 20px;
-            color: #00c896;
-            text-align: center;
-        }
-
-        .specs-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-        }
-
-        .spec-item {
-            background: rgba(0, 200, 150, 0.05);
-            padding: 15px;
-            border-radius: 10px;
-            border: 1px solid rgba(0, 200, 150, 0.1);
-        }
-
-        .spec-item .label {
-            font-size: 12px;
-            color: #888;
-            margin-bottom: 5px;
-        }
-
-        .spec-item .value {
-            font-size: 16px;
-            font-weight: bold;
-            color: #00c896;
-        }
-
-        .warning {
-            background: rgba(255, 170, 0, 0.1);
-            border: 1px solid rgba(255, 170, 0, 0.3);
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 10px;
-            font-size: 13px;
-            color: #ffaa00;
-            display: none;
-            text-align: center;
-        }
-
-        .architecture-section {
-            background: rgba(26, 26, 46, 0.6);
-            border-radius: 15px;
-            padding: 30px;
-            border: 1px solid rgba(0, 200, 150, 0.2);
-            margin-bottom: 30px;
-        }
-
-        .architecture-section h2 {
-            font-size: 22px;
-            margin-bottom: 20px;
-            color: #00c896;
-            text-align: center;
-        }
-
-        .architecture-section p {
-            line-height: 1.8;
-            color: #ccc;
-            text-align: justify;
-            margin-bottom: 15px;
-        }
-
-        /* Mobile Optimizations */
-        @media (max-width: 768px) {
-            body {
-                font-size: 14px;
-            }
-
-            .header {
-                padding: 15px 10px;
-            }
-
-            .header h1 {
-                font-size: 18px;
-                line-height: 1.3;
-            }
-
-            .header p {
-                font-size: 12px;
-                line-height: 1.4;
-            }
-
-            .container {
-                padding: 10px;
-            }
-
-            .viewer-section {
-                padding: 15px 10px;
-                margin-bottom: 20px;
-                border-radius: 15px;
-            }
-            
-            model-viewer {
-                height: 350px;
-                border-radius: 10px;
-            }
-
-            .ar-btn {
-                padding: 14px 24px;
-                font-size: 15px;
-                width: 100%;
-                max-width: 300px;
-            }
-
-            .controls {
-                flex-direction: column;
-                gap: 10px;
-                margin-top: 15px;
-            }
-
-            .controls p {
-                padding: 10px 15px;
-                font-size: 12px;
-                width: 100%;
-                text-align: center;
-            }
-
-            .info-grid {
-                grid-template-columns: 1fr;
-                gap: 15px;
-                margin-bottom: 20px;
-            }
-
-            .info-card {
-                padding: 20px 15px;
-            }
-
-            .info-card h3 {
-                font-size: 16px;
-                margin-bottom: 12px;
-            }
-
-            .info-card li {
-                font-size: 13px;
-                padding: 6px 0;
-                padding-right: 18px;
-            }
-
-            .specs-section {
-                padding: 20px 15px;
-                margin-bottom: 20px;
-            }
-
-            .specs-section h2 {
-                font-size: 18px;
-                margin-bottom: 15px;
-            }
-
-            .specs-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
-            }
-
-            .spec-item {
-                padding: 12px;
-            }
-
-            .spec-item .label {
-                font-size: 11px;
-            }
-
-            .spec-item .value {
-                font-size: 14px;
-            }
-
-            .architecture-section {
-                padding: 20px 15px;
-                margin-bottom: 20px;
-            }
-
-            .architecture-section h2 {
-                font-size: 18px;
-                margin-bottom: 15px;
-            }
-
-            .architecture-section p {
-                font-size: 13px;
-                line-height: 1.6;
-            }
-
-            .warning {
-                padding: 12px;
-                margin: 15px 5px;
-                font-size: 12px;
-            }
-        }
-
-        /* Extra small devices */
-        @media (max-width: 480px) {
-            .header h1 {
-                font-size: 16px;
-            }
-
-            .header p {
-                font-size: 11px;
-            }
-
-            model-viewer {
-                height: 300px;
-            }
-
-            .specs-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .ar-btn {
-                font-size: 14px;
-                padding: 12px 20px;
-            }
-
-            .info-card h3 {
-                font-size: 15px;
-            }
-
-            .info-card li {
-                font-size: 12px;
-            }
-        }
-
-        /* Landscape mobile */
-        @media (max-width: 896px) and (orientation: landscape) {
-            model-viewer {
-                height: 70vh;
-            }
-
-            .header {
-                padding: 10px;
-            }
-
-            .header h1 {
-                font-size: 16px;
-            }
-
-            .controls {
-                flex-direction: row;
-            }
-        }
-
-        /* Touch device optimizations */
-        @media (hover: none) and (pointer: coarse) {
-            .ar-btn {
-                min-height: 44px; /* iOS touch target size */
-            }
-
-            .info-card {
-                -webkit-tap-highlight-color: transparent;
-            }
-
-            model-viewer {
-                touch-action: pan-y pinch-zoom;
-            }
-        }
-
-        .hotspot-info {
-            background: rgba(0, 200, 150, 0.95);
-            color: white;
-            padding: 10px 15px;
+        .hotspot-label {
+            background: rgba(10, 10, 10, 0.9);
+            border: 1px solid #00c896;
             border-radius: 8px;
-            font-size: 13px;
-            font-weight: bold;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            color: white;
+            font-size: 14px;
+            padding: 8px 16px;
+            position: absolute;
+            top: 50%;
+            left: 30px;
+            transform: translateY(-50%);
+            white-space: nowrap;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            pointer-events: none;
         }
+
+        /* تحسينات الموبايل للنقاط */
+        @media (max-width: 768px) {
+            .hotspot { width: 15px; height: 15px; }
+            .hotspot-label { font-size: 12px; padding: 5px 10px; left: 25px; }
+        }
+
+        /* بقية تنسيقات الكروت والمواصفات التي أرسلتها سابقاً */
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin: 30px 0; }
+        .info-card { background: rgba(26, 26, 46, 0.6); border-radius: 15px; padding: 25px; border: 1px solid rgba(0, 200, 150, 0.2); }
+        .specs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+        .spec-item { background: rgba(0, 200, 150, 0.05); padding: 15px; border-radius: 10px; }
+        .ar-btn { background: linear-gradient(135deg, #00c896, #00a0ff); color: white; border: none; padding: 15px 30px; border-radius: 30px; font-weight: bold; cursor: pointer; position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); }
     </style>
 </head>
 <body>
     <div class="header">
         <h1>🪨 الصخرة الذكية للمراقبة الحدودية</h1>
-        <p>نظام مراقبة متقدم مدعوم بالذكاء الاصطناعي ومخفي في صخرة مموهة</p>
+        <p>نظام Jetson Nano و UGV مدمج للكشف الذكي</p>
     </div>
 
     <div class="container">
-        <div class="warning" id="warning">
-            ⚠️ تأكد من توفر نموذج الصخرة ثلاثي الأبعاد
-        </div>
-
         <div class="viewer-section">
-            <model-viewer
-                id="viewer"
+            <model-viewer id="viewer"
                 src="https://raw.githubusercontent.com/Razanaldakhil/rock_internal/main/AR-Rock.glb" 
                 ios-src="https://raw.githubusercontent.com/Razanaldakhil/rock_internal/main/AR-Rock.usdz" 
-                ar
-                ar-modes="quick-look webxr scene-viewer"
-                    ar-scale="auto"  camera-controls
+                ar ar-modes="webxr scene-viewer quick-look" 
+                camera-controls auto-rotate shadow-intensity="1" exposure="1.2">
 
-                camera-controls
-                auto-rotate
-                auto-rotate-delay="3000"
-                rotation-per-second="30deg"
-                bounds="tight" 
-                shadow-intensity="1"
-                exposure="1.2"
-                environment-image="neutral"
- 
-                camera-orbit="45deg 75deg auto" min-camera-orbit="auto auto auto" max-camera-orbit="auto auto auto"
-
-                
-                touch-action="pan-y"
-                interaction-prompt="auto"
-                interaction-prompt-threshold="2000"
-                loading="eager"
-                reveal="auto">
-                <button class="hotspot" slot="hotspot-camera" data-position="0.05m 0.25m 0.1m" data-normal="0m 1m 0m">
-        <div class="hotspot-label">الكاميرا الذكية</div>
-    </button>
-
-    <button class="hotspot" slot="hotspot-nano" data-position="0m 0.15m 0.05m" data-normal="0m 1m 0m">
-        <div class="hotspot-label">وحدة المعالجة (Jetson Nano)</div>
-    </button>
-
-    <button class="hotspot" slot="hotspot-ugv" data-position="0m 0.05m 0m" data-normal="0m 1m 0m">
-        <div class="hotspot-label">قاعدة UGV المجنزرة</div>
-    </button>
-
-  
-              
-  
-                <button slot="ar-button" class="ar-btn">
-                    📸 عرض في الواقع المعزز (AR)
+                <button class="hotspot" slot="hotspot-camera" 
+                    data-position="0.05m 0.25m 0.1m" data-normal="0m 1m 0m">
+                    <div class="hotspot-label">📸 الكاميرا الذكية (HD)</div>
                 </button>
-                
-                <div class="progress-bar" slot="progress-bar">
-                    <div class="update-bar"></div>
-                </div>
+
+                <button class="hotspot" slot="hotspot-nano" 
+                    data-position="0m 0.15m 0.05m" data-normal="0m 1m 0m">
+                    <div class="hotspot-label">🧠 معالج Jetson Nano</div>
+                </button>
+
+                <button class="hotspot" slot="hotspot-ugv" 
+                    data-position="0m 0.05m 0m" data-normal="0m 1m 0m">
+                    <div class="hotspot-label">🚜 قاعدة UGV المتحركة</div>
+                </button>
+
+                <button slot="ar-button" class="ar-btn">📸 عرض في الواقع المعزز</button>
             </model-viewer>
-
-            <div class="controls">
-                <p>👆 اسحب للتدوير والاستكشاف</p>
-                <p>🔍 قرّب الأصابع للتكبير والتصغير</p>
-                <p>📱 اضغط زر AR للعرض في بيئتك</p>
-            </div>
-        </div>
-
-        <div class="specs-section">
-            <h2>📊 المواصفات التقنية</h2>
-            <div class="specs-grid">
-                <div class="spec-item">
-                    <div class="label">وحدة المعالجة</div>
-                    <div class="value">NVIDIA Jetson Nano</div>
-                </div>
-                <div class="spec-item">
-                    <div class="label">نموذج الكشف</div>
-                    <div class="value">YOLO  </div>
-                </div>
-                <div class="spec-item">
-                    <div class="label">استهلاك الطاقة</div>
-                    <div class="value">5-10 واط</div>
-                </div>
-                <div class="spec-item">
-                    <div class="label">دقة الكاميرا</div>
-                    <div class="value">640×640 @ 40fps</div>
-                </div>
-                <div class="spec-item">
-                    <div class="label">معالج الرسوميات</div>
-                    <div class="value">128-core Maxwell GPU</div>
-                </div>
-                <div class="spec-item">
-                    <div class="label">وضع التشغيل</div>
-                    <div class="value">24/7 مستقل</div>
-                </div>
-            </div>
         </div>
 
         <div class="info-grid">
             <div class="info-card">
-                <h3>🎯 قدرات الكشف</h3>
+                <h3>⚙️ المكونات الأساسية</h3>
                 <ul>
-                    <li>كشف الأشخاص والمركبات</li>
-                    <li>التعرف على الوجوه</li>
-                    <li>كشف الحقائب والأمتعة</li>
-                    <li>كشف الأسلحة والسكاكين</li>
-                    <li>تتبع متعدد الكائنات</li>
+                    <li>NVIDIA Jetson Nano (4GB RAM)</li>
+                    <li>وحدة UGV مجنزرة للتحرك الوعر</li>
+                    <li>كاميرا واسعة الزاوية مع رؤية ليلية</li>
+                    <li>هيكل مموه بمواد مقاومة للحرارة</li>
                 </ul>
             </div>
-
-            <div class="info-card">
-                <h3>⚙️ مكونات النظام</h3>
-                <ul>
-                    <li>كاميرا USB عالية الدقة</li>
-                    <li>Jetson Nano (معالج AI)</li>
-                    <li>هيكل صخري مموه</li>
-                    <li>نظام اتصالات محمي</li>
-                    <li>بطارية طويلة الأمد</li>
-                </ul>
-            </div>
-
-            <div class="info-card">
-                <h3>🚀 المزايا الرئيسية</h3>
-                <ul>
-                    <li>تمويه كامل في البيئة</li>
-                    <li>معالجة فورية على الحافة</li>
-                    <li>استهلاك طاقة منخفض</li>
-                    <li>عمل مستقل 24/7</li>
-                    <li>مقاومة الظروف القاسية</li>
-                </ul>
-            </div>
-
-            <div class="info-card">
-                <h3>🔒 تطبيقات الأمن</h3>
-                <ul>
-                    <li>مراقبة الحدود</li>
-                    <li>كشف التسلل</li>
-                    <li>تتبع الحركة المشبوهة</li>
-                    <li>جمع البيانات الأمنية</li>
-                    <li>تنبيهات في الوقت الفعلي</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="architecture-section">
-            <h2>🏗️ بنية النظام</h2>
-            <p>
-                يعتمد نظام المراقبة الحدودية على بنية موزعة متقدمة تتكون من أربعة مكونات رئيسية. يستخدم خط أنابيب تدريب النماذج مجموعة بيانات  بفئات مخصصة للمراقبة الحدودية  ، لإنتاج نماذج YOLO محولة إلى صيغة ONNX للنشر.
-            </p>
-            <p>
-                يعمل محرك الاستدلال كخدمة مصغرة حاوية مع Docker، مستخدماً Redis للتخزين المؤقت وMLflow لإدارة النماذج. تتكون وحدات الحافة من منصات Mini UGV المخفية داخل صخور اصطناعية مموهة، تعالج تدفقات الكاميرا عبر RabbitMQ، وتشغل كشف YOLO محلياً للعمل المستقل. يجمع محرك التحليلات والتنبيهات البيانات من وحدات متعددة، ويكتشف الأنشطة المشبوهة، ويولد التنبيهات الفورية.
-            </p>
         </div>
     </div>
 
     <script>
+        // السكريبت الخاص بك لإدارة دوران النموذج والرسائل
         const viewer = document.getElementById('viewer');
-        const warning = document.getElementById('warning');
-
-        // Mobile optimization: Reduce auto-rotate on mobile
-        if (window.innerWidth < 768) {
-            viewer.setAttribute('auto-rotate-delay', '5000');
-            viewer.setAttribute('rotation-per-second', '20deg');
-        }
-
-        viewer.addEventListener('error', (e) => {
-            warning.style.display = 'block';
-            console.error('فشل تحميل النموذج:', e);
-        });
-
         viewer.addEventListener('load', () => {
-            console.log('تم تحميل النموذج بنجاح ✓');
-            warning.style.display = 'none';
+            console.log('Model loaded with Jetson Nano and UGV components');
         });
-
-        viewer.addEventListener('ar-status', (e) => {
-            console.log('حالة الواقع المعزز:', e.detail.status);
-            if (e.detail.status === 'not-presenting') {
-                console.log('جاهز لتفعيل الواقع المعزز');
-            } else if (e.detail.status === 'session-started') {
-                console.log('بدأت جلسة الواقع المعزز');
-            }
-        });
-
-        // Optional: Add loading animation feedback
-        viewer.addEventListener('progress', (e) => {
-            const progress = e.detail.totalProgress;
-            console.log(`التحميل: ${Math.round(progress * 100)}%`);
-        });
-
-        // Mobile performance: Pause auto-rotate when user interacts
-        let userInteracting = false;
-        viewer.addEventListener('camera-change', () => {
-            if (!userInteracting) {
-                userInteracting = true;
-                viewer.removeAttribute('auto-rotate');
-                
-                // Resume auto-rotate after 5 seconds of inactivity
-                clearTimeout(window.rotateTimeout);
-                window.rotateTimeout = setTimeout(() => {
-                    viewer.setAttribute('auto-rotate', '');
-                    userInteracting = false;
-                }, 5000);
-            }
-        });
-
-        // Prevent overscroll on iOS
-        document.body.addEventListener('touchmove', function(e) {
-            if (e.target === viewer || viewer.contains(e.target)) {
-                e.stopPropagation();
-            }
-        }, { passive: true });
-
-        // Optimize for orientation changes
-        window.addEventListener('orientationchange', () => {
-            setTimeout(() => {
-                viewer.jumpCameraToGoal();
-            }, 100);
-        });
-
-        // Performance monitoring (optional)
-        if ('connection' in navigator) {
-            const connection = navigator.connection;
-            if (connection.effectiveType === '2g' || connection.saveData) {
-                console.log('Slow connection detected - optimizing...');
-                viewer.removeAttribute('auto-rotate');
-            }
-        }
     </script>
 </body>
 </html>
