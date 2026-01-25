@@ -79,6 +79,23 @@
             border-radius: 15px;
             --progress-bar-color: #00c896;
         }
+        /* Target the generated annotation labels */
+        model-viewer [slot^="hotspot"] {
+          background: rgba(0, 200, 150, 0.92) !important;
+          color: white !important;
+          font-weight: 600 !important;
+          padding: 6px 12px !important;
+          border-radius: 20px !important;
+          box-shadow: 0 3px 12px rgba(0,0,0,0.4) !important;
+          border: 1.5px solid rgba(255,255,255,0.4) !important;
+          font-size: 13.5px !important;   /* adjust for readability in Arabic */
+          white-space: nowrap;
+        }
+        
+        /* make leader line (the connecting line) more visible */
+        model-viewer [slot^="hotspot"]::before {
+          background: #00c896 !important;
+        }
 
         .ar-btn {
             background: linear-gradient(135deg, #00c896, #00a0ff);
