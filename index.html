@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -15,12 +15,10 @@
             box-sizing: border-box; 
         }
 
-        /* Prevent zoom on input focus for iOS */
         input, select, textarea {
             font-size: 16px;
         }
 
-        /* Smooth scrolling for better mobile experience */
         html {
             scroll-behavior: smooth;
             -webkit-text-size-adjust: 100%;
@@ -79,39 +77,32 @@
             border-radius: 15px;
             --progress-bar-color: #00c896;
         }
-        /* Target the generated annotation labels */
-        model-viewer [slot^="hotspot"] {
-          background: rgba(0, 200, 150, 0.92) !important;
-          color: white !important;
-          font-weight: 600 !important;
-          padding: 6px 12px !important;
-          border-radius: 20px !important;
-          box-shadow: 0 3px 12px rgba(0,0,0,0.4) !important;
-          border: 1.5px solid rgba(255,255,255,0.4) !important;
-          font-size: 13.5px !important;   /* adjust for readability in Arabic */
-          white-space: nowrap;
-        }
-        
-        /* make leader line (the connecting line) more visible */
-        model-viewer [slot^="hotspot"]::before {
-          background: #00c896 !important;
-        }
-        model-viewer [slot^="hotspot"] {
-  font-size: 12px !important;          /* smaller text – was probably ~14–15px */
-  padding: 4px 10px !important;        /* tighter padding */
-  min-width: unset !important;
-  white-space: nowrap;
-  line-height: 1.2 !important;
-  border-radius: 16px !important;
-  background: rgba(0, 200, 150, 0.9) !important;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.5) !important;
-}
 
-/* Optional: shorter leader line (the connecting stem) */
-model-viewer [slot^="hotspot"]::part(leader) {
-  height: 18px !important;             /* default is longer – shorten it */
+        /* CRITICAL: Direct button styling for hotspots */
+        /* CRITICAL: Direct button styling for hotspots */
+/* CRITICAL: Direct button styling for hotspots */
+model-viewer button[slot^="hotspot"] {
+    display: block !important;
+    background: rgba(0, 200, 150, 0.95) !important;
+    border: 2px solid rgba(255, 255, 255, 0.6) !important;
+    border-radius: 12px !important;  /* Slightly larger radius for bigger buttons */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8) !important;  /* Stronger shadow for prominence */
+    color: white !important;
+    cursor: pointer;
+    font-family: 'Cairo', -apple-system, sans-serif !important;
+    font-size: 20px !important;  /* Increased from 24px for bigger font */
+    font-weight: 700 !important;
+    line-height: 1.1 !important;
+    padding: 10px 18px !important;  /* Increased padding for bigger overall size */
+    white-space: nowrap !important;
+    max-width: 120px !important;  /* Increased to fit larger content */
+    text-align: center !important;
+    pointer-events: auto !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: scale(1.2) !important;  /* Slight scale-up for bigger appearance */
+    transform-origin: center !important;
 }
-
         .ar-btn {
             background: linear-gradient(135deg, #00c896, #00a0ff);
             color: white;
@@ -123,6 +114,7 @@ model-viewer [slot^="hotspot"]::part(leader) {
             cursor: pointer;
             box-shadow: 0 5px 20px rgba(0, 200, 150, 0.4);
             transition: all 0.3s ease;
+            margin-top: 15px;
         }
 
         .ar-btn:hover {
@@ -272,22 +264,16 @@ model-viewer [slot^="hotspot"]::part(leader) {
 
         /* Mobile Optimizations */
         @media (max-width: 768px) {
-            body {
-                font-size: 14px;
-            }
-
             .header {
                 padding: 15px 10px;
             }
 
             .header h1 {
                 font-size: 18px;
-                line-height: 1.3;
             }
 
             .header p {
                 font-size: 12px;
-                line-height: 1.4;
             }
 
             .container {
@@ -296,13 +282,16 @@ model-viewer [slot^="hotspot"]::part(leader) {
 
             .viewer-section {
                 padding: 15px 10px;
-                margin-bottom: 20px;
-                border-radius: 15px;
             }
             
             model-viewer {
                 height: 350px;
-                border-radius: 10px;
+            }
+
+            model-viewer button[slot^="hotspot"] {
+                font-size: 8px !important;
+                padding: 3px 7px !important;
+                max-width: 70px !important;
             }
 
             .ar-btn {
@@ -315,45 +304,24 @@ model-viewer [slot^="hotspot"]::part(leader) {
             .controls {
                 flex-direction: column;
                 gap: 10px;
-                margin-top: 15px;
             }
 
             .controls p {
                 padding: 10px 15px;
                 font-size: 12px;
-                width: 100%;
-                text-align: center;
             }
 
             .info-grid {
                 grid-template-columns: 1fr;
                 gap: 15px;
-                margin-bottom: 20px;
             }
 
             .info-card {
                 padding: 20px 15px;
             }
 
-            .info-card h3 {
-                font-size: 16px;
-                margin-bottom: 12px;
-            }
-
-            .info-card li {
-                font-size: 13px;
-                padding: 6px 0;
-                padding-right: 18px;
-            }
-
             .specs-section {
                 padding: 20px 15px;
-                margin-bottom: 20px;
-            }
-
-            .specs-section h2 {
-                font-size: 18px;
-                margin-bottom: 15px;
             }
 
             .specs-grid {
@@ -361,73 +329,15 @@ model-viewer [slot^="hotspot"]::part(leader) {
                 gap: 10px;
             }
 
-            .spec-item {
-                padding: 12px;
-            }
-
-            .spec-item .label {
-                font-size: 11px;
-            }
-
-            .spec-item .value {
-                font-size: 14px;
-            }
-
             .architecture-section {
                 padding: 20px 15px;
-                margin-bottom: 20px;
-            }
-
-            .architecture-section h2 {
-                font-size: 18px;
-                margin-bottom: 15px;
             }
 
             .architecture-section p {
                 font-size: 13px;
-                line-height: 1.6;
-            }
-
-            .warning {
-                padding: 12px;
-                margin: 15px 5px;
-                font-size: 12px;
             }
         }
-
-        /* Extra small devices */
-        @media (max-width: 480px) {
-            .header h1 {
-                font-size: 16px;
-            }
-
-            .header p {
-                font-size: 11px;
-            }
-
-            model-viewer {
-                height: 300px;
-            }
-
-            .specs-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .ar-btn {
-                font-size: 14px;
-                padding: 12px 20px;
-            }
-
-            .info-card h3 {
-                font-size: 15px;
-            }
-
-            .info-card li {
-                font-size: 12px;
-            }
-        }
-
-        /* Landscape mobile */
+         
         @media (max-width: 896px) and (orientation: landscape) {
             model-viewer {
                 height: 70vh;
@@ -444,7 +354,7 @@ model-viewer [slot^="hotspot"]::part(leader) {
             .controls {
                 flex-direction: row;
             }
-        }
+        }   
 
         /* Touch device optimizations */
         @media (hover: none) and (pointer: coarse) {
@@ -461,15 +371,18 @@ model-viewer [slot^="hotspot"]::part(leader) {
             }
         }
 
-        .hotspot-info {
-            background: rgba(0, 200, 150, 0.95);
-            color: white;
-            padding: 10px 15px;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: bold;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        }
+        @media (max-width: 480px) {
+            model-viewer {
+                height: 300px;
+            }
+
+               model-viewer button[slot^="hotspot"] {
+        font-size: 15px !important;  /* Scaled down but still bigger than original 7px */
+        padding: 6px 12px !important;
+        max-width: 90px !important;
+        transform: scale(1.0) !important;  /* No scale on very small screens to avoid overlap */
+    }
+}
     </style>
 </head>
 <body>
@@ -484,65 +397,60 @@ model-viewer [slot^="hotspot"]::part(leader) {
         </div>
 
         <div class="viewer-section">
-            <model-viewer
-  id="viewer"
-  src="https://raw.githubusercontent.com/Razanaldakhil/rock_internal/main/AR-Rock.glb"
-  ios-src="https://raw.githubusercontent.com/Razanaldakhil/rock_internal/main/AR-Rock.usdz"
-  ar
-  ar-modes="quick-look webxr scene-viewer"
-  ar-scale="auto"
-  camera-controls
-  auto-rotate
-  auto-rotate-delay="3000"
-  rotation-per-second="30deg"
-  shadow-intensity="1"
-  exposure="1.2"
-  environment-image="neutral"
-  camera-orbit="45deg 75deg auto"
-  touch-action="pan-y"
-  interaction-prompt="auto"
-  loading="eager"
-  reveal="auto">
+   <model-viewer
+    id="viewer"
+    src="https://raw.githubusercontent.com/Razanaldakhil/rock_internal/main/AR-Rock.glb"
+    ios-src="https://raw.githubusercontent.com/Razanaldakhil/rock_internal/main/AR-Rock.usdz"
+    ar
+    ar-modes="quick-look webxr scene-viewer"
+    ar-scale="auto"
+    camera-controls
+    auto-rotate
+    auto-rotate-delay="3000"
+    rotation-per-second="30deg"
+    shadow-intensity="1"
+    exposure="1.2"
+    environment-image="neutral"
+      camera-orbit="0deg 75deg auto"
+        field-of-view="20deg"
+    min-camera-orbit="auto auto 0.5m"
+    max-camera-orbit="auto auto 10m"
+    max-field-of-view="35deg"
+    touch-action="pan-y"
+    interaction-prompt="auto"
+    loading="eager"
+    reveal="auto">
 
-  <!-- Always-visible annotation hotspots -->
-<button 
-  slot="hotspot-camera"
-  data-position="0.08m 0.28m 1m"    
-  data-normal="0m 1m 0m"
-  data-visibility-attribute="visible">
-  الكاميرا الذكية
-</button>
+    <!-- Hotspots with improved positioning (adjust as needed based on your model) -->
+    <button 
+        slot="hotspot-1"
+        data-position="-4 1.6 4"
+        data-normal="-4 1 1"
+        id="hotspot-camera">
+        📷 كاميرا
+    </button>
 
-<button 
-  slot="hotspot-nano"
-  data-position="-0.04m 0.18m 0.5m"  
-  data-normal="0m 1m 0m"
-  data-visibility-attribute="visible">
-  وحدة المعالجة (Jetson Nano)
-</button>
+    <button 
+        slot="hotspot-2"
+        data-position="-4 0.60 4"
+        data-normal="0 0 0"
+        id="hotspot-jetson">
+        💻 Jetson
+    </button>
 
- 
+    <button 
+        slot="hotspot-3"
+        data-position="-4 -1 4"
+        data-normal="4 1 1"
+        id="hotspot-ugv">
+        🚗 UGV
+    </button>
 
-  <button 
-    slot="hotspot-ugv"
-  data-position="3m 0.02m -0.04m"      
-    data-normal="0m 1m 0m"
-    data-visibility-attribute="visible">
-     UGV مركبة أرضية بدون طيار
-  </button>
-   
+    <button slot="ar-button" class="ar-btn">
+        📸 عرض في الواقع المعزز (AR)
+    </button>
+</model-viewer>
 
-  
-              
-  
-                <button slot="ar-button" class="ar-btn">
-                    📸 عرض في الواقع المعزز (AR)
-                </button>
-                
-                <div class="progress-bar" slot="progress-bar">
-                    <div class="update-bar"></div>
-                </div>
-            </model-viewer>
 
             <div class="controls">
                 <p>👆 اسحب للتدوير والاستكشاف</p>
@@ -560,7 +468,7 @@ model-viewer [slot^="hotspot"]::part(leader) {
                 </div>
                 <div class="spec-item">
                     <div class="label">نموذج الكشف</div>
-                    <div class="value">YOLO  </div>
+                    <div class="value">YOLO</div>
                 </div>
                 <div class="spec-item">
                     <div class="label">استهلاك الطاقة</div>
@@ -630,87 +538,109 @@ model-viewer [slot^="hotspot"]::part(leader) {
         <div class="architecture-section">
             <h2>🏗️ بنية النظام</h2>
             <p>
-                يعتمد نظام المراقبة الحدودية على بنية موزعة متقدمة تتكون من أربعة مكونات رئيسية. يستخدم خط أنابيب تدريب النماذج مجموعة بيانات  بفئات مخصصة للمراقبة الحدودية  ، لإنتاج نماذج YOLO محولة إلى صيغة ONNX للنشر.
+                يعتمد نظام المراقبة الحدودية على بنية موزعة متقدمة تتكون من أربعة مكونات رئيسية. يستخدم خط أنابيب تدريب النماذج مجموعة بيانات بفئات مخصصة للمراقبة الحدودية، لإنتاج نماذج YOLO محولة إلى صيغة ONNX للنشر.
             </p>
             <p>
                 يعمل محرك الاستدلال كخدمة مصغرة حاوية مع Docker، مستخدماً Redis للتخزين المؤقت وMLflow لإدارة النماذج. تتكون وحدات الحافة من منصات Mini UGV المخفية داخل صخور اصطناعية مموهة، تعالج تدفقات الكاميرا عبر RabbitMQ، وتشغل كشف YOLO محلياً للعمل المستقل. يجمع محرك التحليلات والتنبيهات البيانات من وحدات متعددة، ويكتشف الأنشطة المشبوهة، ويولد التنبيهات الفورية.
             </p>
         </div>
     </div>
+<script>
+    const viewer = document.getElementById('viewer');
+    const warning = document.getElementById('warning');
 
-    <script>
-        const viewer = document.getElementById('viewer');
-        const warning = document.getElementById('warning');
+    // Mobile adjustments
+    if (window.innerWidth < 768) {
+        viewer.setAttribute('auto-rotate-delay', '5000');
+        viewer.setAttribute('rotation-per-second', '20deg');
+    }
 
-        // Mobile optimization: Reduce auto-rotate on mobile
-        if (window.innerWidth < 768) {
-            viewer.setAttribute('auto-rotate-delay', '5000');
-            viewer.setAttribute('rotation-per-second', '20deg');
+    // Error handling
+    viewer.addEventListener('error', (e) => {
+        warning.style.display = 'block';
+        console.error('❌ فشل تحميل النموذج:', e);
+    });
+
+    // On model load
+   // On model load
+viewer.addEventListener('load', () => {
+    console.log('✅ تم تحميل النموذج بنجاح');
+    warning.style.display = 'none';
+
+    // Force front view (90deg horizontal for front, 80deg vertical for slight tilt, 17m distance)
+    setTimeout(() => {
+        viewer.cameraOrbit = '90deg 80deg 17m';  // Front view with fixed distance
+        viewer.fieldOfView = '30deg';
+        viewer.jumpCameraToGoal();
+        console.log('📷 تم ضبط الكاميرا للعرض الأمامي');
+    }, 100);
+
+    // Add click handlers to hotspots (unchanged)
+    const hotspots = [
+        { id: 'hotspot-camera', info: 'كاميرا USB عالية الدقة لالتقاط الفيديو والصور.' },
+        { id: 'hotspot-jetson', info: 'NVIDIA Jetson Nano لمعالجة الذكاء الاصطناعي محلياً.' },
+        { id: 'hotspot-ugv', info: 'وحدة UGV محمولة للحركة والمراقبة.' }
+    ];
+
+    hotspots.forEach(({ id, info }) => {
+        const button = document.getElementById(id);
+        if (button) {
+            button.addEventListener('click', () => {
+                alert(`ℹ️ ${info}`);
+                console.log(`🔘 تم النقر على: ${id}`);
+            });
+            console.log(`✅ تم تسجيل حدث لـ: ${id}`);
+        } else {
+            console.warn(`⚠️ لم يتم العثور على زر: ${id}`);
         }
+    });
+});
 
-        viewer.addEventListener('error', (e) => {
-            warning.style.display = 'block';
-            console.error('فشل تحميل النموذج:', e);
-        });
+    // Other existing listeners...
+    viewer.addEventListener('ar-status', (e) => {
+        console.log('حالة AR:', e.detail.status);
+    });
 
-        viewer.addEventListener('load', () => {
-            console.log('تم تحميل النموذج بنجاح ✓');
-            warning.style.display = 'none';
-        });
-
-        viewer.addEventListener('ar-status', (e) => {
-            console.log('حالة الواقع المعزز:', e.detail.status);
-            if (e.detail.status === 'not-presenting') {
-                console.log('جاهز لتفعيل الواقع المعزز');
-            } else if (e.detail.status === 'session-started') {
-                console.log('بدأت جلسة الواقع المعزز');
-            }
-        });
-
-        // Optional: Add loading animation feedback
-        viewer.addEventListener('progress', (e) => {
-            const progress = e.detail.totalProgress;
-            console.log(`التحميل: ${Math.round(progress * 100)}%`);
-        });
-
-        // Mobile performance: Pause auto-rotate when user interacts
-        let userInteracting = false;
-        viewer.addEventListener('camera-change', () => {
-            if (!userInteracting) {
-                userInteracting = true;
-                viewer.removeAttribute('auto-rotate');
-                
-                // Resume auto-rotate after 5 seconds of inactivity
-                clearTimeout(window.rotateTimeout);
-                window.rotateTimeout = setTimeout(() => {
-                    viewer.setAttribute('auto-rotate', '');
-                    userInteracting = false;
-                }, 5000);
-            }
-        });
-
-        // Prevent overscroll on iOS
-        document.body.addEventListener('touchmove', function(e) {
-            if (e.target === viewer || viewer.contains(e.target)) {
-                e.stopPropagation();
-            }
-        }, { passive: true });
-
-        // Optimize for orientation changes
-        window.addEventListener('orientationchange', () => {
-            setTimeout(() => {
-                viewer.jumpCameraToGoal();
-            }, 100);
-        });
-
-        // Performance monitoring (optional)
-        if ('connection' in navigator) {
-            const connection = navigator.connection;
-            if (connection.effectiveType === '2g' || connection.saveData) {
-                console.log('Slow connection detected - optimizing...');
-                viewer.removeAttribute('auto-rotate');
-            }
+    viewer.addEventListener('progress', (e) => {
+        const progress = e.detail.totalProgress;
+        if (progress < 1) {
+            console.log(`⏳ التحميل: ${Math.round(progress * 100)}%`);
         }
-    </script>
+    });
+
+    let userInteracting = false;
+    viewer.addEventListener('camera-change', () => {
+        if (!userInteracting) {
+            userInteracting = true;
+            viewer.removeAttribute('auto-rotate');
+            
+            clearTimeout(window.rotateTimeout);
+            window.rotateTimeout = setTimeout(() => {
+                viewer.setAttribute('auto-rotate', '');
+                userInteracting = false;
+            }, 5000);
+        }
+    });
+
+    document.body.addEventListener('touchmove', function(e) {
+        if (e.target === viewer || viewer.contains(e.target)) {
+            e.stopPropagation();
+        }
+    }, { passive: true });
+
+    window.addEventListener('orientationchange', () => {
+        setTimeout(() => {
+            viewer.jumpCameraToGoal();
+        }, 100);
+    });
+
+    if ('connection' in navigator) {
+        const connection = navigator.connection;
+        if (connection.effectiveType === '2g' || connection.saveData) {
+            console.log('⚡ اتصال بطيء - تم تعطيل الدوران التلقائي');
+            viewer.removeAttribute('auto-rotate');
+        }
+    }
+</script>
 </body>
 </html>
