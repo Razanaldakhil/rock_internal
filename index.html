@@ -453,30 +453,49 @@
 
         <div class="viewer-section">
             <model-viewer
-                id="viewer"
-                src="https://raw.githubusercontent.com/Razanaldakhil/rock_internal/main/AR-Rock.glb" 
-                ios-src="https://raw.githubusercontent.com/Razanaldakhil/rock_internal/main/AR-Rock.usdz" 
-                ar
-                ar-modes="quick-look webxr scene-viewer"
-                    ar-scale="auto"  camera-controls
+  id="viewer"
+  src="https://raw.githubusercontent.com/Razanaldakhil/rock_internal/main/AR-Rock.glb"
+  ios-src="https://raw.githubusercontent.com/Razanaldakhil/rock_internal/main/AR-Rock.usdz"
+  ar
+  ar-modes="quick-look webxr scene-viewer"
+  ar-scale="auto"
+  camera-controls
+  auto-rotate
+  auto-rotate-delay="3000"
+  rotation-per-second="30deg"
+  shadow-intensity="1"
+  exposure="1.2"
+  environment-image="neutral"
+  camera-orbit="45deg 75deg auto"
+  touch-action="pan-y"
+  interaction-prompt="auto"
+  loading="eager"
+  reveal="auto">
 
-                camera-controls
-                auto-rotate
-                auto-rotate-delay="3000"
-                rotation-per-second="30deg"
-                bounds="tight" 
-                shadow-intensity="1"
-                exposure="1.2"
-                environment-image="neutral"
- 
-                camera-orbit="45deg 75deg auto" min-camera-orbit="auto auto auto" max-camera-orbit="auto auto auto"
+  <!-- Always-visible annotation hotspots -->
+  <button 
+    slot="hotspot-camera"
+    data-position="0.05m 0.25m 0.1m"
+    data-normal="0m 1m 0m"
+    data-visibility-attribute="visible">
+    الكاميرا الذكية
+  </button>
 
-                
-                touch-action="pan-y"
-                interaction-prompt="auto"
-                interaction-prompt-threshold="2000"
-                loading="eager"
-                reveal="auto">
+  <button 
+    slot="hotspot-nano"
+    data-position="0m 0.15m 0.05m"
+    data-normal="0m 1m 0m"
+    data-visibility-attribute="visible">
+    وحدة المعالجة (Jetson Nano)
+  </button>
+
+  <button 
+    slot="hotspot-ugv"
+    data-position="0m 0.05m 0m"
+    data-normal="0m 1m 0m"
+    data-visibility-attribute="visible">
+     UGV مركبة أرضية بدون طيار
+  </button>
                 <button class="hotspot" slot="hotspot-camera" data-position="0.05m 0.25m 0.1m" data-normal="0m 1m 0m">
         <div class="hotspot-label">الكاميرا الذكية</div>
     </button>
