@@ -642,6 +642,11 @@ viewer.addEventListener('load', () => {
             viewer.removeAttribute('auto-rotate');
         }
     }
+ if (!('ontouchstart' in window) && !navigator.xr) {
+    const arButton = document.querySelector('model-viewer [slot="ar-button"]');
+    if (arButton) arButton.style.display = 'none';
+}
+
 </script>
 </body>
 </html>
